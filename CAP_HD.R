@@ -347,7 +347,7 @@ gamma.solve<-function(A,H)
 }
 
 # gamma thresholding function
-gamma.thred<-function(gamma,lambda,Y=NULL,method=c("Reg","HT"))
+gamma.thred<-function(gamma,lambda,Y=NULL,method=c("HT","Reg"))
 {
   # standardize gamma first
   gamma<-gamma/sqrt(sum(gamma^2))
@@ -411,7 +411,7 @@ gamma.thred<-function(gamma,lambda,Y=NULL,method=c("Reg","HT"))
 }
 
 # estimate both gamma and beta
-cap_D1<-function(Y,X,method=c("CAP"),lambda=0,method.thred=c("Reg","HT"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,gamma0=NULL)
+cap_D1<-function(Y,X,method=c("CAP"),lambda=0,method.thred=c("HT","Reg"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,gamma0=NULL)
 {
   n<-length(Y)
   p<-ncol(Y[[1]])
@@ -645,7 +645,7 @@ cap_D1<-function(Y,X,method=c("CAP"),lambda=0,method.thred=c("Reg","HT"),cov.shr
 }
 
 # try several initial value of gamma and optimize over the objective function
-cap_D1_opt<-function(Y,X,method=c("CAP"),lambda=0,method.thred=c("Reg","HT"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,gamma0.mat=NULL,ninitial=NULL,seed=500)
+cap_D1_opt<-function(Y,X,method=c("CAP"),lambda=0,method.thred=c("HT","Reg"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,gamma0.mat=NULL,ninitial=NULL,seed=500)
 {
   n<-length(Y)
   p<-ncol(Y[[1]])
@@ -762,7 +762,7 @@ cap_D1_opt<-function(Y,X,method=c("CAP"),lambda=0,method.thred=c("Reg","HT"),cov
 #################################################
 # second and higher direction
 # CAP.OC: orthogonal constraint
-cap_Dk<-function(Y,X,Phi0=NULL,method=c("CAP"),OC=FALSE,lambda=0,method.thred=c("Reg","HT"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,gamma0.mat=NULL,ninitial=NULL,seed=500)
+cap_Dk<-function(Y,X,Phi0=NULL,method=c("CAP"),OC=FALSE,lambda=0,method.thred=c("HT","Reg"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,gamma0.mat=NULL,ninitial=NULL,seed=500)
 {
   if(is.null(Phi0))
   {
@@ -888,7 +888,7 @@ diag.level<-function(Y,Phi)
 
 #################################################
 # finding first k directions
-capReg<-function(Y,X,stop.crt=c("nD","DfD"),nD=NULL,DfD.thred=5,method=c("CAP"),OC=FALSE,lambda=0,method.thred=c("Reg","HT"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,
+capReg<-function(Y,X,stop.crt=c("nD","DfD"),nD=NULL,DfD.thred=5,method=c("CAP"),OC=FALSE,lambda=0,method.thred=c("HT","Reg"),cov.shrinkage=FALSE,max.itr=1000,tol=1e-4,score.return=TRUE,trace=FALSE,
                  gamma0.mat=NULL,ninitial=NULL,seed=500,verbose=TRUE)
 {
   # Y: outcome list
@@ -1130,7 +1130,7 @@ capReg<-function(Y,X,stop.crt=c("nD","DfD"),nD=NULL,DfD.thred=5,method=c("CAP"),
 ###########################################
 # Inference of beta
 # based on bootstrap
-cap_beta_boot<-function(Y,X,gamma=NULL,cov.shrinkage=TRUE,beta=NULL,boot=TRUE,sims=1000,boot.ci.type=c("perc","bca"),conf.level=0.95,max.itr=1000,tol=1e-4,verbose=TRUE)
+cap_beta_boot<-function(Y,X,gamma=NULL,cov.shrinkage=TRUE,beta=NULL,boot=TRUE,sims=1000,boot.ci.type=c("perc","bca"),conf.level=0.95,verbose=TRUE)
 {
   n<-length(Y)
   p<-ncol(Y[[1]])
