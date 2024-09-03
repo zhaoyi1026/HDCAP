@@ -5,7 +5,7 @@
 
 library("MASS")       # general inverse of a matrix
 # library("nloptr")     # non-linear optimization
-library("multigroup") # common PCA
+# library("multigroup") # common PCA
 
 library("glmnet")     # lasso package
 #################################################
@@ -878,7 +878,7 @@ diag.level<-function(Y,Phi)
       }
     }
     
-    pmean<-apply(dl.sub,2,function(y){return(prod(apply(cbind(y,Tvec),1,function(x){return(x[1]^(x[2]/sum(Tvec)))})))})
+    pmean<-apply(dl.sub,2,function(y){return(prod(apply(cbind(y,Tvec),1,function(x){return(x[1]^(x[2]/sum(Tvec)))}),na.rm=TRUE))})
     
     re<-list(avg.level=pmean,sub.level=dl.sub)
     return(re)
